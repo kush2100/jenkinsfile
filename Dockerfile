@@ -8,6 +8,8 @@ RUN apt-get update && \
         python-setuptools \
         groff \
         less \
+    && yum install -y unzip \
+    && yum install -y zip \    
     && pip install --upgrade awscli \
     && apt-get clean
 
