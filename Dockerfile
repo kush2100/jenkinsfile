@@ -1,15 +1,16 @@
-FROM library/node:6.11.2
+FROM node:lts-stretch-slim
 
 RUN apt-get update && \
     apt-get install -y \
-        python \
-        python-dev \
-        python-pip \
-        python-setuptools \
-        groff \
-        less \
-    && yum install -y zip \    
-    && pip install --upgrade awscli \
-    && apt-get clean
+        unzip \
+        curl \
+    && apt-get clean \
+    && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+    && unzip awscliv2.zip \
+    && ./aws/install \
+    && rm -rf \
+        awscliv2.zip \
+    && apt-get -y purge curl \
+    && apt-get -y purge unzip 
 
 CMD ["/bin/bash"]
